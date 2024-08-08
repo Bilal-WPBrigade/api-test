@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <section>
+      <div class="container">
+        <div id="college-data" class="row"></div>  
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      
+   // Replace with your Google Apps Script web app URL
+    const apiUrl = 'https://script.googleusercontent.com/macros/echo?user_content_key=ijrgvpxuVE8izMucFuM2kqJZl1g8j_kWFO7GxZuRMLXfV-q3kht4F2fuMinBGdkCflHo6avyfNLYTFo9g95sbHiuFhcQ5xyhm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnCCWjLHeLMwSctDy-uns_4MTrc827JJjW5zu775lOWWeb_Gk80Yqo9TcB98s3EHpBQOER5ma8MqGoUbZgMwePUAwMEjDfvL99dz9Jw9Md8uu&lib=MnKo716OfUPsiPR08VM1Uv5WYAz52U0Wi';
+
+    // Fetch data from the Google Apps Script API
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById('college-data').innerText = 'Error: ' + data.error;
+        } else {
+          displayData(data.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        document.getElementById('college-data').innerText = 'Error fetching data.';
+      });
+
+    // Function to display the fetched data
+    function displayData(collegeData) {
+      const container = document.getElementById('college-data');
+      collegeData.forEach(college => {
+        const collegeCard = document.createElement('div');
+				collegeCard.classList.add('col');
+      /*   collegeCard.style.border = '1px solid #000';
+        collegeCard.style.padding = '10px';
+        collegeCard.style.margin = '10px';
+        collegeCard.style.width = '300px'; */
+
+        collegeCard.innerHTML = `
+        	<div class="card">
+          <h2>${college.college}</h2>
+          <p>Genders Accepted: ${college.gendersAccepted || 'N/A'}</p>
+          <p>Campus Size: ${college.campusSize || 'N/A'}</p>
+          <p>Total Student Enrollments: ${college.totalEnrollments || 'N/A'}</p>
+          <p>Total Faculty: ${college.totalFaculty || 'N/A'}</p>
+          <p>Established Year: ${college.establishedYear || 'N/A'}</p>
+          <p>Rating: ${college.rating || 'N/A'}</p>
+          <p>University: ${college.university || 'N/A'}</p>
+          <p>Courses: ${college.courses || 'N/A'}</p>
+          <p>Facilities: ${college.facilities || 'N/A'}</p>
+          <p>City: ${college.city || 'N/A'}</p>
+          <p>State: ${college.state || 'N/A'}</p>
+          <p>Country: ${college.country || 'N/A'}</p>
+          <p>College Type: ${college.collegeType || 'N/A'}</p>
+          <p>Average Fees: ${college.averageFees || 'N/A'}</p>
+          </div>
+        `;
+        container.appendChild(collegeCard);
+      });
+    }
+    </script>
+  </body>
+</html>
