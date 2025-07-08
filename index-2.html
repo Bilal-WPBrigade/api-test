@@ -72,7 +72,7 @@
                 const list = document.createElement('ul');
 
                 // Add data from corresponding column, up to 25 rows
-                for (let rowIndex = 1; rowIndex < Math.min(data.length, 25); rowIndex++) {
+                for (let rowIndex = 1; rowIndex < Math.min(data.length, 10); rowIndex++) {
                   const cell = data[rowIndex][colIndex];
                   if (cell && cell.trim()) {
                     const listItem = document.createElement('li');
